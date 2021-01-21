@@ -1,18 +1,20 @@
-const webpack = require("webpack");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-// const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
-// const WebpackPwaManifest = require("webpack-pwa-manifest");
+const webpack = require("webpack");
 const path = require("path");
 
-const config = {
+module.exports = {
+  // entry: "./assets/js/script.js",
   entry: {
     app: "./assets/js/script.js",
     events: "./assets/js/events.js",
     schedule: "./assets/js/schedule.js",
     tickets: "./assets/js/tickets.js",
   },
+  // output: {
+  //   path: path.resolve(__dirname, "dist"),
+  //   filename: "main.bundle.js",
+  // },
   output: {
     filename: "[name].bundle.js",
     path: __dirname + "/dist",
@@ -20,7 +22,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.jpg$/,
         use: [
           {
             loader: "file-loader",
@@ -46,27 +48,11 @@ const config = {
       jQuery: "jquery",
     }),
     new BundleAnalyzerPlugin({
+      // This will output an HTML file called report.html that will generate in the dist folder
       analyzerMode: "static",
-    }),
-    new WebpackPwaManifest({
-      name: "Food Event",
-      short_name: "Foodies",
-      description: "An app that allows you to view upcoming food events.",
-      start_url: "../index.html",
-      background_color: "#01579b",
-      theme_color: "#ffffff",
-      fingerprints: false,
-      inject: false,
-      icons: [
-        {
-          src: path.resolve("assets/img/icons/icon-512x512.png"),
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join("assets", "icons"),
-        },
-      ],
+      // We can also set this value to disable to temporarily stop the reporting...
+      // ...and automatic opening of this report in the browser.
     }),
   ],
   mode: "development",
 };
-
-module.exports = config;
