@@ -1,8 +1,9 @@
 const webpack = require("webpack");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
+// const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+// const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
 
 const config = {
@@ -24,8 +25,9 @@ const config = {
           {
             loader: "file-loader",
             options: {
+              esModule: false,
               name(file) {
-                return "[path][name].[ext]";
+                return "./assets/icons/[name].[ext]";
               },
               publicPath: function (url) {
                 return url.replace("../", "/assets/");
@@ -58,7 +60,7 @@ const config = {
       inject: false,
       icons: [
         {
-          src: path.resolve("assets/img/icons/icon-512x512.png"),
+          src: path.resolve("./assets/img/icons/icon-512x512.png"),
           sizes: [96, 128, 192, 256, 384, 512],
           destination: path.join("assets", "icons"),
         },

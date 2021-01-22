@@ -20,6 +20,7 @@ const FILES_TO_CACHE = [
   "./dist/events.bundle.js",
   "./dist/tickets.bundle.js",
   "./dist/schedule.bundle.js",
+  "./dist/assets/icons/icon_192x192.png",
 ];
 
 // setting up event listeners
@@ -44,6 +45,7 @@ self.addEventListener("activate", function (e) {
       });
       cacheKeeplist.push(CACHE_NAME);
 
+      // always use new cache
       return Promise.all(
         keyList.map(function (key, i) {
           if (cacheKeeplist.indexOf(key) === -1) {
